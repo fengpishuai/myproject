@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="aiermei.dao.DictMapper" > 
+    <resultMap id="BaseResultMap" type="aiermei.model.DictItem" >
+        <id column="dictId" property="dictId" jdbcType="INTEGER" />
+        <result column="dictName" property="dictName" jdbcType="VARCHAR" />
+        <result column="groupId" property="groupId" jdbcType="INTEGER" />
+        <result column="status" property="status" jdbcType="VARCHAR" /> 
+    </resultMap>
+    <resultMap id="GroupResultMap" type="aiermei.model.DictGroup" >
+        <id column="groupId" property="groupId" jdbcType="INTEGER" />
+        <result column="groupName" property="groupName" jdbcType="VARCHAR" />
+        <result column="status" property="status" jdbcType="VARCHAR" /> 
+    </resultMap>
+    <select id="selectDictItemById"  resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select * from dict_item WHERE dictid = #{dictId,jdbcType=INTEGER}
+    </select>
+    <select id="selectDictItemByGroupId"  resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select t.*from dict_item t where t.groupid=(select s.groupid from dict_group s where s.groupid=#{groupId,jdbcType=INTEGER});
+    </select>
+    
+    <select id="selectDictGroupByGroupId" resultMap="GroupResultMap" parameterType="java.lang.Integer">
+        select t.*from dict_group t where t.groupid = #{groupId,jdbcType=INTEGER} 
+    </select>
+   
+</mapper>

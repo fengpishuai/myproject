@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="aiermei.dao.ProductMapper" >
+    <resultMap id="BaseResultMap" type="aiermei.model.Products" >
+        <id column="productId" property="productId" jdbcType="VARCHAR" />
+        <result column="productName" property="productName" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="selectProductsById"  resultMap="BaseResultMap" parameterType="java.lang.String">
+        select * from products WHERE productId = #{productId,jdbcType=VARCHAR}
+    </select>
+   
+</mapper>
